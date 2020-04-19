@@ -5,6 +5,7 @@ try:
     import json
     import os
     from flask import (Flask,request, make_response)
+    import smtplib
 
 except Exception as e:
 
@@ -32,6 +33,8 @@ def webhook():
             res = processRequest(req, 0)
         elif intent == "active_india":
             res = processRequest(req, 1)
+        elif intent == "report_case":
+            res = processRequest(req, 2)
         res = json.dumps(res, indent=4)
         r = make_response(res)
         r.headers['Content-Type'] = 'application/json'
@@ -53,6 +56,24 @@ def processRequest(req, i):
     elif i == 1:
         country=parameters.get("geo-country")
         res = check("nn", "nn", country)
+    elif i == 2:
+    	p_name = str(parameters.get("p_name"))
+    	p_age = str(int(parameters.get("p_age")))
+    	p_city = str(parameters.get("p_city"))
+    	p_date = str(parameters.get("p_date"))
+    	p_email = parameters.get("p_email")
+    	s = smtplib.SMTP('smtp.gmail.com', 587)
+    	s.starttls()
+    	s.login("aarushmaheshwari5@gmail.com", "@#$000abc")
+    	a = "tat atata"
+    	message = "Name " + p_name + "Age " + p_age + "City "+ p_city
+    	s.sendmail("aarushmaheshwari5@gmail.com", p_email, message)
+    	s.sendmail("aarushmaheshwari5@gmail.com", "nisamfaras2@gmail.com", message)
+
+    	s.quit()
+    	res = 0
+
+
     return res
 
 
