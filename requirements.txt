@@ -1,5 +1,5 @@
 Flask==1.1.1
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 json5==0.8.5
 jsonschema==3.0.2
 requests==2.22.0
